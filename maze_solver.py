@@ -58,6 +58,7 @@ class Cell:
                  ,y1=0
                  ,y2=50
                  ,win=None
+                 ,visited=False
                  ):
         self.has_left_wall = has_left_wall
         self.has_right_wall = has_right_wall
@@ -68,17 +69,26 @@ class Cell:
         self._y1 = y1
         self._y2 = y2
         self._win= win
+        self.visited = visited
 
     def draw(self):
         if self._win is not None:
             if self.has_left_wall:
                 self._win.draw_line(Line(Point(self._x1,self._y1),Point(self._x1,self._y2)),"black")
+            else:
+                self._win.draw_line(Line(Point(self._x1,self._y1),Point(self._x1,self._y2)),"#d9d9d9")
             if self.has_right_wall:
                 self._win.draw_line(Line(Point(self._x2,self._y1),Point(self._x2,self._y2)),"black")
+            else:
+                self._win.draw_line(Line(Point(self._x2,self._y1),Point(self._x2,self._y2)),"#d9d9d9")
             if self.has_top_wall:
                 self._win.draw_line(Line(Point(self._x1,self._y1),Point(self._x2,self._y1)),"black")
+            else:
+                self._win.draw_line(Line(Point(self._x1,self._y1),Point(self._x2,self._y1)),"#d9d9d9")
             if self.has_bottom_wall:
                 self._win.draw_line(Line(Point(self._x1,self._y2),Point(self._x2,self._y2)),"black")
+            else:
+                self._win.draw_line(Line(Point(self._x1,self._y2),Point(self._x2,self._y2)),"#d9d9d9")
 
     def draw_move(self, to_cell, undo=False):
         x1 = (self._x1 + self._x2) / 2

@@ -1,5 +1,4 @@
 import unittest
-
 from maze import Maze
 from maze_solver import Cell, Window
 
@@ -52,6 +51,22 @@ class Tests(unittest.TestCase):
             m1 = Maze(0, 0, 50, 50, 10, 10)
         except Exception as e:
             self.fail(f"Large maze initialization failed: {e}")
+
+    def test_maze_entrance_and_exit(self):
+        """Test that the entrance and exit walls are correctly removed."""
+        num_cols = 5
+        num_rows = 5
+        m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
+
+        # Break entrance and exit
+        m1._break_entrance_and_exit()
+
+        # Check if top-left cell has no top wall
+        self.assertFalse(m1._cells[0][0].has_top_wall, "Entrance wall was not removed!")
+
+        # Check if bottom-right cell has no bottom wall
+        self.assertFalse(m1._cells[-1][-1].has_bottom_wall, "Exit wall was not removed!")
+
 
 if __name__ == "__main__":
     unittest.main()
