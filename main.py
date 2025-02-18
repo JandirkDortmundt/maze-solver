@@ -14,6 +14,7 @@ def main():
     # Create and draw the maze
     maze = Maze(20, 20, num_rows, num_cols, cell_size_x, cell_size_y, win)
     maze._break_entrance_and_exit()
+    maze._break_walls_r(0, 0)
     win.wait_for_close()  # Keep window open
 
 if __name__ == "__main__":

@@ -50,7 +50,7 @@ class Maze:
     def _animate(self):
         if self.win is not None:
             self.win.redraw()
-            time.sleep(0.05)
+            time.sleep(0.01)
     
     def _break_entrance_and_exit(self):
         top_left = self._cells[0][0]
@@ -76,17 +76,21 @@ class Maze:
             if j + 1 < self.num_rows and self._cells[i][j+1].visited is False:
                 to_visit.append([i,j+1])
             if len(to_visit) == 0:
+                current_cell.draw()
+                self._animate()
                 return
             else:
                 next_ij = to_visit[random.randrange(len(to_visit))]
-                next_cell = self._cells[next_ij[0],next_ij[1]]
+                print(f"next ij:{next_ij}")
+                print(f"next ij first element:{next_ij[0]}")
+                next_cell = self._cells[next_ij[0]][next_ij[1]]
                 if next_ij[0] -i == -1: #next cell is left
                     #break left wall from current and the right wall from next
                     current_cell.has_left_wall = False
                     current_cell.draw()
                     self._animate()
                     next_cell.has_right_wall = False
-                    nex_cell.draw()
+                    next_cell.draw()
                     self._animate() 
                 if next_ij[0] -i == 1: #next cell is right
                     #break right wall from current and the left wall from next
@@ -94,7 +98,7 @@ class Maze:
                     current_cell.draw()
                     self._animate()
                     next_cell.has_left_wall = False
-                    nex_cell.draw()
+                    next_cell.draw()
                     self._animate()
                 if next_ij[1] -j == -1: #next cell is above 
                     #break top wall from current and the bottom wall from next
@@ -102,7 +106,7 @@ class Maze:
                     current_cell.draw()
                     self._animate()
                     next_cell.has_bottom_wall = False
-                    nex_cell.draw()
+                    next_cell.draw()
                     self._animate()
                 if next_ij[1] -j == 1: #next cell is below
                     #break bottom wall from current and the top wall from next
@@ -110,7 +114,7 @@ class Maze:
                     current_cell.draw()
                     self._animate()
                     next_cell.has_top_wall = False
-                    nex_cell.draw()
+                    next_cell.draw()
                     self._animate()
                 self._break_walls_r(next_ij[0],next_ij[1])
 
