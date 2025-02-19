@@ -67,6 +67,28 @@ class Tests(unittest.TestCase):
         # Check if bottom-right cell has no bottom wall
         self.assertFalse(m1._cells[-1][-1].has_bottom_wall, "Exit wall was not removed!")
 
+    def test_reset_cells_visited(self):
+        """Test that reset_cells_visited properly resets all cells to unvisited."""
+        # Create a small test maze
+        num_cols = 3
+        num_rows = 3
+        m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
+        
+        # Mark some cells as visited
+        m1._cells[0][0].visited = True
+        m1._cells[1][1].visited = True
+        m1._cells[2][2].visited = True
+        
+        # Reset all cells
+        m1._reset_cells_visited()
+        
+        # Verify all cells are now unvisited
+        for i in range(num_cols):
+            for j in range(num_rows):
+                self.assertFalse(
+                    m1._cells[i][j].visited,
+                    f"Cell at ({i},{j}) was not reset to unvisited"
+                )
 
 if __name__ == "__main__":
     unittest.main()
